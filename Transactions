@@ -1,0 +1,55 @@
+CREATE TABLE EMPLOYEE (
+  empId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  dept TEXT NOT NULL
+);
+
+INSERT INTO EMPLOYEE VALUES (0001, 'Clark', 'Sales');
+INSERT INTO EMPLOYEE VALUES (0002, 'Dave', 'Accounting');
+INSERT INTO EMPLOYEE VALUES (0003, 'Ava', 'Sales');
+
+SELECT * FROM EMPLOYEE WHERE dept = 'Sales';
+
+CREATE TABLE contas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    titular VARCHAR(100),
+    saldo DECIMAL(10,2)
+);
+
+INSERT INTO contas (titular, saldo)
+VALUES
+('Ana', 1500.00),
+('Carlos', 800.00);
+
+START TRANSACTION;
+
+UPDATE contas
+SET saldo = saldo - 300.00
+WHERE titular = 'Ana';
+
+UPDATE contas
+SET saldo = saldo + 300.00
+WHERE titular = 'Carlos';
+
+SELECT titular, saldo FROM contas;
+
+COMMIT;
+
+SELECT titular, saldo FROM contas;
+
+START TRANSACTION;
+
+UPDATE contas
+SET saldo = saldo - 200.00
+WHERE titular = 'Carlos';
+
+UPDATE contas
+SET saldo = saldo + 200.00
+WHERE titular = 'Ana';
+
+
+SELECT titular, saldo FROM contas;
+
+ROLLBACK;
+
+SELECT titular, saldo FROM contas;
